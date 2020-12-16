@@ -1,6 +1,12 @@
 # projeto-nodejs-rest
 Curso da Alura
 
+# Requisitos
+- node
+- mysql
+- postman ou insomnia
+- express
+
 # Iniciando o node
 npm init
 

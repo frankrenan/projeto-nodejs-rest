@@ -1,4 +1,3 @@
-const { buscaId } = require('../model/antedimento');
 const Atendimento = require('../model/antedimento');
 
 
@@ -10,7 +9,7 @@ module.exports = app => {
     app.get('/atendimentos/:id', (req, res) => {
         const id = parseInt(req.params.id);
         
-        buscaId(id, res);
+        Atendimento.buscaId(id, res);
     });
 
     app.post('/atendimentos', (req, res) => {

@@ -1,5 +1,5 @@
 const moment = require('moment');
-const conexao = require('../database/conexao')
+const conexao = require('../database/conexao');
 
 class Atendimento {
 
@@ -42,7 +42,7 @@ class Atendimento {
                 else {
                     res.status(201).json(resultados);
                 }
-            })
+            });
         }
 
     }

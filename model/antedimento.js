@@ -47,6 +47,53 @@ class Atendimento {
 
     }
 
+    lista(res) {
+        const sql = 'SELECT * from atendimentos';
+
+        conexao.query(sql, (erro, resultados) => {
+            if (erro) {
+                res.status(400).json(erro);
+            }
+            else {
+                res.status(200).json(resultados);
+            }
+        })
+    }
+
+    buscaId(id, res) {
+        const sql = `SELECT * FROM atendimentos WHERE id = ${id}`;
+
+
+        conexao.query(sql, (erro, resultados) => {
+            const atendimento = resultados[0];
+
+            if (erro) {
+                res.status(400).json(erro);
+            }
+            else {
+                res.status(200).json(atendimento);
+            }
+        });
+    }
+
+    altera(id, valores, res) {
+
+        if (valores.data) {
+            valores.data = moment(valores.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
+        }
+
+        const sql = 'UPDATE atendimentos SET ? WHERE id=?';
+
+        conexao.query(sql, [valores, id], (erro, resultados) => {
+            if (erro) {
+                res.status(400).json(erro);
+            }
+            else {
+                res.status(200).json(resultados);
+            }
+        });
+    }
+
 }
 
 module.exports = new Atendimento;

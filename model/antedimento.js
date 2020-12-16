@@ -4,11 +4,12 @@ const conexao = require('../database/conexao')
 class Atendimento {
 
     adiciona(atendimento, res) {
-        const dataCriacao = moment().format('YYYY-MM-DD HH/MM/SS');
+        const dataCriacao = moment().format('YYYY-MM-DD HH:MM:SS');
         const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
 
         const dataEhValida = moment(data).isSameOrAfter(dataCriacao);
         const clienteEhValido = atendimento.cliente.length > 4;
+
 
         const validacoes = [
             {
@@ -31,7 +32,6 @@ class Atendimento {
         }
         else {
             const atendimentoDatado = { ...atendimento, dataCriacao, data }
-
 
             const sql = 'INSERT INTO atendimentos SET ?';
 
@@ -90,6 +90,19 @@ class Atendimento {
             }
             else {
                 res.status(200).json(resultados);
+            }
+        });
+    }
+
+    exclui(id, res){
+        const sql = 'DELETE FROM atendimentos WHERE id=?';
+
+        conexao.query(sql, id, (erro, resultados)=> {
+            if(erro){
+                res.status(400).json(erro);
+            }
+            else{
+                res.status(200).json({id});
             }
         });
     }
